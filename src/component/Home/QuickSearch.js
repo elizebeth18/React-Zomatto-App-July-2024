@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import QuickDisplay from './QuickDisplay'
 import './QuickSearch.css';
 
 class QuickSearch extends Component {
@@ -7,7 +8,18 @@ class QuickSearch extends Component {
     }
 
     render () {
-        return (<h2>Quick Search</h2>);
+        return (
+        <div className="quickSearch">
+            <span id="QuickSearchHeading">
+                Quick Search
+            </span>
+            <span id="quickSubHeading">
+                Find Resturants By MealType
+            </span>
+            <div>
+                <QuickDisplay />
+            </div>
+        </div>);
     }
 }
 
