@@ -59,14 +59,14 @@ class Search extends Component {
                     <span>D!</span>
                 </div>
                 <div id="heading">
-                    Search Place Near To You
+                    Search Places Near To Me
                 </div>
                 <div id="dropdown">
                     <select onChange={this.handleCity}>
                         <option>---Select City---</option>
                         {this.renderCity(this.state.location)}
                     </select>
-                    <select className='restSelect'>
+                    <select className="restSelect">
                         <option>---Select Resturant---</option>
                         {this.renderResturant(this.state.resturants)}
                     </select>

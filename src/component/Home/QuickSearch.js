@@ -2,9 +2,15 @@ import React,{Component} from 'react';
 import QuickDisplay from './QuickDisplay'
 import './QuickSearch.css';
 
+const base_url = process.env.REACT_APP_API_URL;
 class QuickSearch extends Component {
+
     constructor () {
         super();
+
+        this.state = {
+            mealType: []
+        }
     }
 
     render () {
@@ -13,13 +19,25 @@ class QuickSearch extends Component {
             <span id="QuickSearchHeading">
                 Quick Search
             </span>
-            <span id="quickSubHeading">
-                Find Resturants By MealType
+            <span id="QuickSubHeading">
+                Find Resturants By Meal Type
             </span>
-            <div>
-                <QuickDisplay />
+            <div id="mealData">
+                <QuickDisplay mealData={this.state.mealType}/>
             </div>
         </div>);
+    }
+
+    //api calling on page load
+    componentDidMount () {
+        fetch(`${base_url}/quicksearch`,{method: 'GET'})
+        //returns promise
+        .then((res) => res.json())
+        //returns data
+        .then((data) => {
+            this.setState({mealType: data});
+          //this.setState({location: data})
+        })
     }
 }
 
