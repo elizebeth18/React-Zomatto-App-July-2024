@@ -27,7 +27,6 @@ const QuickDisplay = (props) => {
         );
       });
 
-      console.log(mData);
       return mData;
     }
   };

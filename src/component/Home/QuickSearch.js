@@ -36,7 +36,6 @@ class QuickSearch extends Component {
         //returns data
         .then((data) => {
             this.setState({mealType: data});
-          //this.setState({location: data})
         })
     }
 }
