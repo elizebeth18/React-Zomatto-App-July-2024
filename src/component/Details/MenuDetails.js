@@ -7,7 +7,27 @@ class MenuDisplay extends Component {
         super(props);
     }
 
-    renderMenu({menuList}) {
+    placeOrder = (id) => {
+        this.orderId.push(id);
+        this.props.finalOrder(this.orderId);
+    }
+
+    removeOrder = (id) => {
+        if(this.orderId.indexOf(id) > -1) {
+            this.orderId.splice(this.orderId.indexOf(id),1);
+        }
+        this.props.finalOrder(this.orderId);
+    }
+
+    renderCart = (orders) => {
+        if(orders){
+            return orders.map((item, index) => {
+                return (<b key={index}>{item}&nbsp;</b>)
+            })
+        }
+    }
+
+    renderMenu = ({menuList}) => {
         if(menuList) {
             return menuList.map((item) => {
                 return (
@@ -19,10 +39,12 @@ class MenuDisplay extends Component {
                                 {item.menu_name} - Rs.{item.menu_price}
                         </div>
                         <div className='col-md-4'>
-                            <button className='btn btn-success'>
+                            <button className='btn btn-success'
+                                onClick={() => { this.placeOrder(item.menu_id)}}>
                                 <span className='glyphicon glyphicon-plus'></span>
                             </button>&nbsp;&nbsp;
-                            <button className='btn btn-danger'>
+                            <button className='btn btn-danger'
+                                onClick={() => { this.removeOrder(item.menu_id)}}>
                                 <span className='glyphicon glyphicon-minus'></span>
                             </button>
                         </div>
@@ -38,7 +60,7 @@ class MenuDisplay extends Component {
             <div>
                 <div className='col-md-12 bg-success'>
                     <h3>Item Added</h3>
-                    <h3>Item Number Added</h3>
+                    <h3>Item Number Added {this.renderCart(this.orderId)}</h3>
                 </div>
                 <div className='col-md-12 bg-info'>
                     {this.renderMenu(this.props)}
