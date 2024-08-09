@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import './Listing.css'
 import axios from 'axios';
 import ListingDisplay from './ListingDisplay';
+import CuisineFilter from '../Filters/CusineFilters';
+import CostFilter from '../Filters/CostFilters';
 
 const base_url = process.env.REACT_APP_API_URL;
 
@@ -16,13 +18,20 @@ class Listing extends Component {
         }
     }
 
+    setDataPerFilter = (data) => {
+        this.setState({resturantList: data})
+    }
+
     render() {
         return(
             <>
                 <div className="row">
                     <div id="mainListing">
                         <div id="filter">
-
+                            <CuisineFilter mealId={this.state.mealId} 
+                                restPerCuisine={(data) => {this.setDataPerFilter(data)}} />
+                            <CostFilter  mealId={this.state.mealId} 
+                                restPerCost={(data) => {this.setDataPerFilter(data)}} />
                         </div>
                         <ListingDisplay restList={this.state.resturantList} />
                     </div>
