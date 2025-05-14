@@ -1,20 +1,36 @@
-import React,{Component} from 'react';
+import React,{useState,useEffect} from 'react';
 import "./Search.css";
 
 const base_url = process.env.REACT_APP_API_URL;
-class Search extends Component {
+const Search = () => {
 
-    constructor() {
-        //console.log(`inside constructor`)
-        super();
+    const [location, setLocation] = useState([]);
+    const [resturants, setResturants] = useState([]);
+    
+    //anything you want on page load
+    /******************
+     * With the help of useEffect we achieve the 
+     * following lifecycle events :
+     * componentWillMount = when first time component will load
+     * componentDidUpdate = when state change happen
+     * componentWillUnmount = when we leave the component
+     */
+    useEffect(() => {
+        
+        fetch(`${base_url}/location`,{method: 'GET'})
+        //returns promise
+        .then((res) => res.json())
+        //returns data
+        .then((data) => {
+            //console.log(data);
+            setLocation(data);
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+    },[]);
 
-        this.state = {
-            location: '',
-            resturants: ''
-        }
-    }
-
-    renderCity = (data) => {
+    const renderCity = (data) => {
         //console.log(`>>>>>>>>>${data}`);
         if(data) {
             return data.map((item,index) => {
@@ -26,7 +42,7 @@ class Search extends Component {
         }
     }
 
-    handleCity = (event) => {
+    const handleCity = (event) => {
         const stateId = event.target.value;
 
         fetch(`${base_url}/restaurant?stateId=${stateId}`,{method:'GET'})
@@ -35,13 +51,13 @@ class Search extends Component {
         //returns data
         .then((data) => {
             //console.log(data);
-            this.setState({resturants: data});
+            setResturants(data);
         })
         .catch((err) => console.error(err));
 
     }
 
-    renderResturant = (data) => {
+    const renderResturant = (data) => {
         if(data) {
             return data.map((item,index) => {
                 return (<option value={item.restaurant_id} key={item._id}>
@@ -51,46 +67,28 @@ class Search extends Component {
         }
     }
 
-    render() {
-        //console.log("inside render")
-        return (
-            <div className="search">
-                <div id="logo">
-                    <span>D!</span>
-                </div>
-                <div id="heading">
-                    Search Places Near To Me
-                </div>
-                <div id="dropdown">
-                    <select onChange={this.handleCity}>
-                        <option>---Select City---</option>
-                        {this.renderCity(this.state.location)}
-                    </select>
-                    <select className="restSelect">
-                        <option>---Select Resturant---</option>
-                        {this.renderResturant(this.state.resturants)}
-                    </select>
-                </div>
-            </div>
-        );
-    }
 
+    return (
+        <div className="search">
+            <div id="logo">
+                <span>D!</span>
+            </div>
+            <div id="heading">
+                Search Places Near To Me
+            </div>
+            <div id="dropdown">
+                <select onChange={handleCity}>
+                    <option>---Select City---</option>
+                    {renderCity(location)}
+                </select>
+                <select className="restSelect">
+                    <option>---Select Resturant---</option>
+                    {renderResturant(resturants)}
+                </select>
+            </div>
+        </div>
+    );
     
-    /* => constructor, render, componentDidMount */
-    componentDidMount () {
-        //console.log(">>>>>>>>>>componentDidMount");
-        fetch(`${base_url}/location`,{method: 'GET'})
-        //returns promise
-        .then((res) => res.json())
-        //returns data
-        .then((data) => {
-            //console.log(data);
-            this.setState({location: data})
-        })
-        .catch((err) => {
-            console.error(err)
-        })
-    }
 }
 
 export default Search;
