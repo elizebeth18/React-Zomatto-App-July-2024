@@ -4,11 +4,12 @@ const DisplayOrder = (props) => {
 
     const renderTable = ({orderData}) => {
         if(orderData){
+            console.log(orderData);
             return orderData.map((item) => {
                 return(
                     <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td>{item.rest_name}</td>
+                        <td>{item.restName}</td>
                         <td>{item.name}</td>
                         <td>{item.phone}</td>
                         <td>{item.email}</td>

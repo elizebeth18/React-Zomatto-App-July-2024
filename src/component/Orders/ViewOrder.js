@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import axios from 'axios';
 import Display from "./DisplayOrder";
 
-const url = "http://localhost:9112/orders";
+const url = "http://localhost:7834/orders";
 
 class ViewOrder extends Component {
 
