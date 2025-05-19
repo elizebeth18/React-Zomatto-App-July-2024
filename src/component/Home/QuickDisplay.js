@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const QuickDisplay = (props) => {
 
    const listMeal = ({mealData}) => {
-    if ({mealData}) {
+    if (props.mealData) {
       const mData = props.mealData.map((item) => {
         return (
           <Link to={`/listing/${item.mealtype_id}`} key={item.mealtype_id}>

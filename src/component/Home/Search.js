@@ -16,9 +16,9 @@ const Search = () => {
      * componentWillUnmount = when we leave the component
      */
     useEffect(() => {
-        
+        //fetch is a javascript method to call the api
         fetch(`${base_url}/location`,{method: 'GET'})
-        //returns promise
+        //returns promise with the help of `.then(  )`
         .then((res) => res.json())
         //returns data
         .then((data) => {

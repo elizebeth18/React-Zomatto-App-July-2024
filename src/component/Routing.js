@@ -4,7 +4,7 @@ import Main from './main';
 import Header from './Header';
 import Footer from './Footer';
 import Home from './Home/Home';
-import Listing from './Listing/ListingApi';
+import Listing from './Listing';
 import Details from './Details/Details';
 import PlaceOrder from './Orders/PlaceOrder';
 import ViewOrder from './Orders/ViewOrder';

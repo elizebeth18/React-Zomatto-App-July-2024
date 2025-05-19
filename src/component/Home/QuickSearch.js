@@ -1,19 +1,23 @@
-import React,{Component} from 'react';
+import React,{useState,useEffect} from 'react';
 import QuickDisplay from './QuickDisplay'
 import './QuickSearch.css';
 
 const base_url = process.env.REACT_APP_API_URL;
-class QuickSearch extends Component {
+const QuickSearch = () => {
 
-    constructor () {
-        super();
-
-        this.state = {
-            mealType: []
-        }
-    }
-
-    render () {
+    const [mealType, setMealType] =  useState([]);
+        
+    useEffect(()=>{
+        fetch(`${base_url}/quicksearch`,{method: 'GET'})
+        //returns promise
+        .then((res) => res.json())
+        //returns data
+        .then((data) => {
+            //console.log(data)
+            setMealType(data);
+        })
+    }, []);
+    
         return (
         <div className="quickSearch">
             <span id="QuickSearchHeading">
@@ -23,21 +27,12 @@ class QuickSearch extends Component {
                 Find Resturants By Meal Type
             </span>
             <div id="mealData">
-                <QuickDisplay mealData={this.state.mealType}/>
+                <QuickDisplay mealData={mealType}/>
             </div>
         </div>);
-    }
+    
 
-    //api calling on page load
-    componentDidMount () {
-        fetch(`${base_url}/quicksearch`,{method: 'GET'})
-        //returns promise
-        .then((res) => res.json())
-        //returns data
-        .then((data) => {
-            this.setState({mealType: data});
-        })
-    }
+    
 }
 
 export default QuickSearch;

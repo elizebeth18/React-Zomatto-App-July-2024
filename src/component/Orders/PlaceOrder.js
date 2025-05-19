@@ -13,7 +13,7 @@ class PlaceOrder extends Component {
 
         this.state = {
             id:Math.floor(Math.random()*10000),
-            rest_name: this.props.match.params.restName,
+            rest_name: 'hj',
             name: 'Jilu',
             email: 'a.jilu@a.com',
             cost: 0,

@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 
 const ListingDisplay = (props) => {
 
-    const renderData = ({restList}) => {
-        if(restList){
-            if(restList.length > 0) {
-                return restList.map((item,index) => {
+    const renderData = ({resturantList}) => {
+        if(resturantList){
+            if(resturantList.length > 0) {
+                return resturantList.map((item,index) => {
                     return(
                         <div className='item' key={item._id}>
                             <div className='col-md-5'>
@@ -56,7 +56,7 @@ const ListingDisplay = (props) => {
             return(
                 <div>
                     <h2>Loading...</h2>
-                    <img src="images/loader.gif" alt="loader"/>
+                    <img src="/images/loader.gif" alt="loader"/>
                 </div>
             );
         }
@@ -93,7 +93,7 @@ const ListingDisplay = (props) => {
                 }
                 return (
                     <>
-                        <span className={sClass} key={Math.random()}>
+                        <span className={sClass} key={Math.random(3)}>
                             {item.cuisine_name}
                         </span> &nbsp;&nbsp;
                     </>
